@@ -1,2 +1,5 @@
-router
+routes
 Dynamically connect the parent components and other components according to the different  url address
+
+1.add new components: home, news, product
+2.import new components in the app-routing.module.ts
