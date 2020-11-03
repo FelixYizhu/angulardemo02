@@ -1,0 +1,2 @@
+router
+Dynamically connect the parent components and other components according to the different  url address
