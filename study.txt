@@ -3,3 +3,61 @@ Dynamically connect the parent components and other components according to the 
 
 1.add new components: home, news, product
 2.import new components in the app-routing.module.ts
+3. config routes
+// config routes
+const routes: Routes = [
+{path: 'home', component: HomeComponent},
+{path: 'news', component: NewsComponent},
+{path: 'product', component: ProductComponent},
+{path: '**', redirectTo: 'home'}  // default router
+];
+
+in app.component.html:   routerLinkActive means selected item
+
+<header class="header">
+
+  <a routerLink="/home" routerLinkActive="active">Home</a>
+  <a routerLink="/news" routerLinkActive="active">news</a>
+</header>
+
+--------------------------
+pass value(from one componnet to another component)
+No1.get :
+
+1.  in news ts file,
+  public list: any [] = [];
+  constructor() { }
+
+  ngOnInit(): void {
+    for (let i = 0 ; i < 10 ; i++){
+      this.list.push('the number ' + i + ' data');
+    }
+  }
+2. in  news html
+<ul>
+    <li *ngFor="let item of list; let key = index; ">
+        <a routerLink="/newscontent" [queryParams]="{aid:key}">{{item}}</a>
+    </li>
+</ul>
+
+3. in newscontent ts:
+
+import { ActivatedRoute } from '@angular/router';
+  ngOnInit(): void {
+    console.log(this.route);
+    this.route.queryParams.subscribe((data)=>{
+      console.log(data);
+    })
+  }
+
+No2. Dynamic route
+
+1. config 
+in app-routing.module.ts config
+{path: 'newscontent/aid', component: NewscontentComponent},  // Dynamic router
+
+2. news html
+    <li *ngFor="let item of list; let key = index; ">
+        <a routerLink="['/newscontent/',key]">{{item}}</a>
+    </li>
+</ul>
