@@ -102,3 +102,8 @@ config:
     ]
 
 },
+
+add router-outlet to make the children router under the parent 
+    <div class="right">
+        <router-outlet></router-outlet>
+    </div>
