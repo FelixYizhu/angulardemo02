@@ -54,10 +54,51 @@ No2. Dynamic route
 
 1. config 
 in app-routing.module.ts config
-{path: 'newscontent/aid', component: NewscontentComponent},  // Dynamic router
+{path: 'newscontent/:aid', component: NewscontentComponent},  // Dynamic router
 
 2. news html
     <li *ngFor="let item of list; let key = index; ">
         <a routerLink="['/newscontent/',key]">{{item}}</a>
     </li>
 </ul>
+
+3.in newscontent ts:
+
+import { ActivatedRoute } from '@angular/router';
+  ngOnInit(): void {
+    console.log(this.route);
+    this.route.params.subscribe((data)=>{
+      console.log(data);
+    })
+  }
+
+  --------------------
+  js redirect router
+
+1. Dynamic router
+  1. import and declare:
+  import { router} from '@angular/router';
+  constructor(public router:Router){}
+  
+  2. this.router.navigate(['/home']);
+     this.router.navigate(['/newscontent/',{queryParams:{aid:123}}])  
+2. get pass value
+   1. import and declare:
+  import { router,NavigationWxtras} from '@angular/router';
+  constructor(public router:Router){}
+  
+  2. this.router.navigate(['/home']);
+     this.router.navigate(['/newscontent/','123'])    
+
+------------------------------------------------
+nest routers(Parent-children router)
+
+config:
+{path: 'home', component: HomeComponent,
+    children:[
+        {path:'welcome', component:WelcomeComponent},
+        {path:'setting', component:SettingComponent},
+        {path:'**', redirectTo:'welcome'}
+    ]
+
+},
